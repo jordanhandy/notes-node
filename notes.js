@@ -1,4 +1,5 @@
-// use file system
+// use file system, chalk
+const chalk = require("chalk");
 const fs = require("fs");
 const getNotes = function () {
   return "Your notes...";
@@ -64,11 +65,11 @@ const removeNote = function(title){
     // if the length of the array didn't change, nothing was removed
     if (notes.length == filteredNotes.length)
     {
-        console.log("No note to remove with that title!")
+        console.log(chalk.red.inverse("No note to remove with that title!"));
     } else{
         // else, re-save the array
         saveNotes(filteredNotes);
-        console.log("Note removed!");
+        console.log(chalk.green.inverse("Note removed!"));
     }
 }
 // export functions
