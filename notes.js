@@ -52,10 +52,26 @@ const loadNotes = function () {
   }
 };
 
+// remove note function
+// call to load notes
+// Keep the notes in the array if the title entered does not match 
+// title of the note (thereby popping the note off the array)
 const removeNote = function(title){
     const notes = loadNotes();
-    console.log(title)
+    const filteredNotes = notes.filter(function(note){
+        return note.title != title
+    })
+    // if the length of the array didn't change, nothing was removed
+    if (notes.length == filteredNotes.length)
+    {
+        console.log("No note to remove with that title!")
+    } else{
+        // else, re-save the array
+        saveNotes(filteredNotes);
+        console.log("Note removed!");
+    }
 }
+// export functions
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
