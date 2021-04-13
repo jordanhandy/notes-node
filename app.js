@@ -1,5 +1,4 @@
 const yargs = require("yargs");
-const { removeNote } = require("./notes");
 const notes = require('./notes');
 
 // customize yargs version
@@ -24,7 +23,7 @@ yargs.command({
 
     },
     // pass the argument vector into the function
-    handler: function(argv) {
+    handler(argv){
         // log the output to console
         notes.addNote(argv.title, argv.body);
     }
@@ -49,7 +48,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function(argv){
+    handler(argv){
         notes.removeNote(argv.title);
     }
 })
@@ -64,14 +63,14 @@ yargs.command({
 yargs.command({
     command: 'list',
     describe: 'List your current notes',
-    handler: function(){
+    handler (){
         console.log("Note listing")
     }
 })
 yargs.command({
     command: 'read',
     describe: 'read your notes..',
-    handler: function(){
+    handler(){
         console.log("Read your notes here")
     }
 })

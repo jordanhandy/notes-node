@@ -1,16 +1,14 @@
 // use file system, chalk
 const chalk = require("chalk");
 const fs = require("fs");
-const getNotes = function () {
+const getNotes = () => {
   return "Your notes...";
 };
 // add note function.  Takes a title, and a body
-const addNote = function (title, body) {
+const addNote = (title, body) => {
   const notes = loadNotes(); // load existing notes
   // if a duplicate title is found, added to array of duplicates
-  const duplicateNotes = notes.filter(function(note){
-      return note.title == title
-  })
+  const duplicateNotes = notes.filter((note) => note.title == title);
 
   // if the array of duplicates has no length, there are no duplicates
   if (duplicateNotes.length == 0) {
@@ -21,11 +19,11 @@ const addNote = function (title, body) {
     })
     // save note
     saveNotes(notes)
-    console.log("New note added!")
+    console.log(chalk.inverse.green("New note added!"));
   }
   // duplicate found.  Do not save note
   else{
-      console.log("Note is a duplicate!");
+      console.log(chalk.inverse.red("Note is a duplicate!"));
   }
 
 };
@@ -33,7 +31,7 @@ const addNote = function (title, body) {
 // To save, take an array of notes
 // turn the JSON data into string
 // write the stringifyed data back to JSON file
-const saveNotes = function (notes){
+const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes);
     fs.writeFileSync('notes.json',dataJSON);
     }
@@ -43,7 +41,7 @@ const saveNotes = function (notes){
     // return the JSON parsed data
 
     // if cannot load notes throw error
-const loadNotes = function () {
+const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync("notes.json");
     const dataJSON = dataBuffer.toString();
@@ -57,9 +55,9 @@ const loadNotes = function () {
 // call to load notes
 // Keep the notes in the array if the title entered does not match 
 // title of the note (thereby popping the note off the array)
-const removeNote = function(title){
+const removeNote = (title) => {
     const notes = loadNotes();
-    const filteredNotes = notes.filter(function(note){
+    const filteredNotes = notes.filter((note) => {
         return note.title != title
     })
     // if the length of the array didn't change, nothing was removed
