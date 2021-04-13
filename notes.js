@@ -70,9 +70,18 @@ const removeNote = (title) => {
         console.log(chalk.green.inverse("Note removed!"));
     }
 }
+
+// load the notes into buffer
+// foreach note title, print to console
+const listNotes = () =>{
+    notes = loadNotes();
+    console.log(chalk.blue.inverse("YOUR NOTES"));
+    notes.forEach(note => console.log(note.title));
+}
 // export functions
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
+  listNotes: listNotes,
 };
