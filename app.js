@@ -1,4 +1,5 @@
 const yargs = require("yargs");
+const { readNote } = require("./notes");
 const notes = require('./notes');
 
 // customize yargs version
@@ -54,12 +55,7 @@ yargs.command({
 })
 
 
-// Challenge: Add two new commands
-
-// 1. Setup command to support 'list' command (can be a placeholder for now)
-// 2. Setup command to support 'read' command (can be a placeholder for now)
-// 3. Test your work
-
+// List command
 yargs.command({
     command: 'list',
     describe: 'List your current notes',
@@ -67,11 +63,20 @@ yargs.command({
         notes.listNotes();
     }
 })
+
+// read individual note
 yargs.command({
     command: 'read',
     describe: 'read your notes..',
-    handler(){
-        console.log("Read your notes here")
+    builder: {
+        title:{
+            describe: 'note title',
+            demandOption: true,
+            type: 'string'
+    }
+},
+    handler(argv){
+        readNote(argv.title);
     }
 })
 

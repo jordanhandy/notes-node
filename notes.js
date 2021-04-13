@@ -8,10 +8,14 @@ const getNotes = () => {
 const addNote = (title, body) => {
   const notes = loadNotes(); // load existing notes
   // if a duplicate title is found, added to array of duplicates
-  const duplicateNotes = notes.filter((note) => note.title == title);
+  // filter method will search all notes, even if a note is found.  Can be
+  // expensive if a lot of notes in array
+  //const duplicateNotes = notes.filter((note) => note.title == title);
+  // the find method will stop at the first match
+  const duplicateNote = notes.find((note) => note.title == title);
 
-  // if the array of duplicates has no length, there are no duplicates
-  if (duplicateNotes.length == 0) {
+  // if no duplicate was found, push to array
+  if (!duplicateNote) {
       // push note to array
     notes.push({
         title: title,
@@ -74,14 +78,41 @@ const removeNote = (title) => {
 // load the notes into buffer
 // foreach note title, print to console
 const listNotes = () =>{
-    notes = loadNotes();
+    const notes = loadNotes();
     console.log(chalk.blue.inverse("YOUR NOTES"));
-    notes.forEach(note => console.log(note.title));
+    notes.forEach(note =>{
+        console.log(note.title)
+    });
 }
+
+// search for a note based on title provided to read the note
+
+// take title as argument
+// load notes
+// find a title match
+const readNote = (title) => {
+    const notes = loadNotes();
+    const note = notes.find((note) => {
+        note.title == title
+    });
+
+    // if match found, display note
+    if (note){
+        console.log(chalk.blue.inverse(note.title+"\n"));
+        console.log(note.body);
+        }
+        // else, display error
+        else{
+            console.log(chalk.red.inverse("No note found!"));
+        }
+    }
+
 // export functions
 module.exports = {
+// property name to expose : what it points to in the current file
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
   listNotes: listNotes,
+  readNote: readNote
 };
