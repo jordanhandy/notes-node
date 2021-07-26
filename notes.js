@@ -93,7 +93,7 @@ const listNotes = () =>{
 const readNote = (title) => {
     const notes = loadNotes();
     const note = notes.find((note) => {
-        note.title == title
+        return note.title == title
     });
 
     // if match found, display note
